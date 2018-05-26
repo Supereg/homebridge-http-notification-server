@@ -83,7 +83,11 @@ function HTTP_ACCESSORY(log, config) {
     api.on('didFinishLaunching', function() {
         // check if notificationRegistration is set, if not 'notificationRegistration' is probably not installed on the system
         if (api.notificationRegistration && typeof api.notificationRegistration === "function") {
-            api.notificationRegistration("accessory-identifier", this.handleNotification.bind(this), "top-secret-password");
+            try {
+                api.notificationRegistration("accessory-identifier", this.handleNotification.bind(this), "top-secret-password");
+            } catch (error) {
+                // notificationID is already taken
+            }
         }
     }.bind(this));
 }
@@ -153,3 +157,11 @@ must be a string.
 * `characteristic` is required. It represents the name of the characteristic which is going to be updated. Value must be 
 a string. Of course this only works with characteristics which have notify permissions in the HAP specifications. 
 * `value` is required. 
+
+## Some compatible http accessories
+
+* [homebridge-http-switch](https://github.com/Supereg/homebridge-http-switch)
+* [homebridge-http-humidity-sensor](https://github.com/Supereg/homebridge-http-humidity-sensor)
+* [homebridge-http-temperature-sensor](https://github.com/Supereg/homebridge-http-temperature-sensor)
+
+_Notify me if you want to see your project here._
