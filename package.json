@@ -1,0 +1,24 @@
+{
+  "name": "homebridge-http-notification-server",
+  "version": "1.0.0",
+  "description": "An http/https server inside Homebridge to receive notifications from external programs",
+  "license": "MIT",
+  "main": "notification-server.js",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Supereg/homebridge-http-notification-server.git"
+  },
+  "bugs": {
+    "url": "git@github.com:Supereg/homebridge-http-notification-server/issues"
+  },
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.4.0"
+  },
+  "devDependencies": {
+    "hap-nodejs": "^0.4.40"
+  }
+}
