@@ -22,6 +22,10 @@ module.exports = function(homebridgeApi) {
 function notificationRegistration(notificationID, handlerFunction, password) {
     log("'" + notificationID + "' registered for notifications " + (password?"(authenticated)":"(without authentication)"));
 
+    if (handlers.hasOwnProperty(notificationID)) {
+        throw new Error("'" + notificationID + "' is already registered");
+    }
+
     handlers[notificationID] = {
         handler: handlerFunction,
         password: password
