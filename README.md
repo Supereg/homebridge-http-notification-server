@@ -119,15 +119,26 @@ HTTP_ACCESSORY.prototype = {
                 return;
         }
 
+        this.ignoreNextSet = true; // see method setStatus()
         this.service.setCharacteristic(characteristicType, value);
     },
     
     getStatus: function(callback) {
-      // http request
+        // http request
     },
     
     setStatus: function(on, callback) {
-      // http request
+        /*
+         the setCharacteristic() from handleNotification() also triggers the setStatus().
+         So we need ignore this one request. Otherwise it could be possible that we get into an infinite loop under
+         certain circumstances.
+         */
+        if (this.ignoreNextSet) {
+            this.ignoreNextSet = false;
+            callback(undefined);
+            return;
+        }
+        // http request
     }
     
 };
