@@ -227,10 +227,6 @@ function handleHTTPCall(request, response) {
                 if (invalid)
                     return;
 
-                response.writeHead(200, {'Content-Type': 'text/html'});
-                response.write("OK");
-                response.end();
-
                 let jsonBody;
                 try {
                     jsonBody = JSON.parse(body);
@@ -254,7 +250,12 @@ function handleHTTPCall(request, response) {
                     response.writeHead(500, {'Content-Type': 'text/html'});
                     response.write("Internal Server Error");
                     response.end();
+                    return;
                 }
+
+                response.writeHead(200, {'Content-Type': 'text/html'});
+                response.write("OK");
+                response.end();
             });
         }
         else {
