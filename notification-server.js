@@ -193,7 +193,7 @@ function handleHTTPCall(request, response) {
             let handler = handlerObject.handler;
             let password = handlerObject.password;
 
-            if (password && (!query.hasOwnProperty("password") || query.password !== password)) {
+            if (password && (!query.password || query.password !== password)) {
                 response.writeHead(401, {'Content-Type': "text/html"});
                 response.write("Unauthorized");
                 response.end();
