@@ -55,12 +55,12 @@ function main(api) {
             log("Parsing config file...");
             configuration = JSON.parse(fs.readFileSync(configPath));
         } catch (error) {
-            error("Could not read 'notification-server.json' config file. Maybe some malformed JSON?");
-            error("Try to validate your JSON with http://jsonlint.com");
-            error("");
-            error(error);
-            error("");
-            error("We continue with using default configuration");
+            logError("Could not read 'notification-server.json' config file. Maybe some malformed JSON?");
+            logError("Try to validate your JSON with http://jsonlint.com");
+            logError("");
+            logError(error);
+            logError("");
+            logError("We continue with using default configuration");
         }
     }
 
@@ -83,7 +83,7 @@ function init(configuration) {
     listenOptions.port = configuration.port || 8080;
     if (typeof configuration.port !== "number") {
         listenOptions.port = 8080;
-        error("The property port in the cofiguration is not a number. Falling back to the default value.");
+        logError("The property port in the cofiguration is not a number. Falling back to the default value.");
     }
 
     if (configuration.ssl && configuration.ssl.privateKey && configuration.ssl.certificate) {
@@ -96,8 +96,8 @@ function init(configuration) {
         try {
             key = fs.readFileSync(configuration.ssl.privateKey);
         } catch (error) {
-            error("Could not read ssl privateKey from disk, falling back to http");
-            error(error);
+            logError("Could not read ssl privateKey from disk, falling back to http");
+            logError(error);
 
             secure = false;
         }
@@ -105,8 +105,8 @@ function init(configuration) {
         try {
             cert = fs.readFileSync(configuration.ssl.certificate);
         } catch (error) {
-            error("Could not read ssl certificate from disk, falling back to http");
-            error(error);
+            logError("Could not read ssl certificate from disk, falling back to http");
+            logError(error);
 
             secure = false;
         }
@@ -213,7 +213,7 @@ function handleHTTPCall(request, response) {
                     body = "";
                     invalid = true;
 
-                    error("'" + notificationID + "' sent POST with too large body. Destroying connection...");
+                    logError("'" + notificationID + "' sent POST with too large body. Destroying connection...");
 
                     response.writeHead(413, {'Content-Type': 'text/plain'});
                     response.write("Payload Too Large");
@@ -241,15 +241,15 @@ function handleHTTPCall(request, response) {
                     response.write("Bad Request");
                     response.end();
 
-                    error("'" + notificationID + "' sent malformed body: " + error.message);
+                    logError("'" + notificationID + "' sent malformed body: " + error.message);
                     return;
                 }
 
                 try {
                     handler(jsonBody);
                 } catch (error) {
-                    error("Handler encountered error when parsing body:");
-                    error(error);
+                    logError("Handler encountered error when parsing body:");
+                    logError(error);
 
                     response.writeHead(500, {'Content-Type': 'text/html'});
                     response.write("Internal Server Error");
@@ -283,11 +283,11 @@ function log(message) {
 }
 
 /**
- * replcaites basic error format from homebridge logger
+ * replicates basic error format from homebridge logger
  *
  * @param message - message to log to error
  */
-function error(message) {
+function logError(message) {
     const prefix = "notification-server";
     message = "[" + prefix + "] " + message;
 
