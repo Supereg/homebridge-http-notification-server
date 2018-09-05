@@ -86,6 +86,8 @@ function init(configuration) {
         logError("The property port in the cofiguration is not a number. Falling back to the default value.");
     }
 
+    /** @namespace configuration.ssl */
+    /** @namespace configuration.ssl.certificate */
     if (configuration.ssl && configuration.ssl.privateKey && configuration.ssl.certificate) {
         secure = true;
 
