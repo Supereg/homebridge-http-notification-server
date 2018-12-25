@@ -109,36 +109,24 @@ HTTP_ACCESSORY.prototype = {
         const characteristic = jsonRequest.characteristic;
         const value = jsonRequest.value;
         
-        let characteristicType;
-        switch (characteristic) {
-            case "On":
-                characteristicType = Characteristic.On;
-                break;
-            default:
-                this.log("Encountered unknown characteristic when handling notification: " + jsonRequest.characteristic);
-                return;
+        // #testCharacteristic returns true if the service was added the specified characteristic.
+        //  you could ad additional checks to adjust for your needs
+        const validCharacteristic = this.service.testCharacteristic(characteristic);
+        
+        if (!validCharacteristic) {
+            this.log("Encountered unknown characteristic when handling notification: " + characteristic);
+            return; // in this example we ignore invalid requests
         }
-
-        this.ignoreNextSet = true; // see method setStatus()
-        this.service.setCharacteristic(characteristicType, value);
+        
+        this.service.updateCharacteristic(characteristic, value);
     },
     
     getStatus: function(callback) {
-        // http request
+        // request
     },
     
     setStatus: function(on, callback) {
-        /*
-         the setCharacteristic() from handleNotification() also triggers the setStatus().
-         So we need ignore this one request. Otherwise it could be possible that we get into an infinite loop under
-         certain circumstances.
-         */
-        if (this.ignoreNextSet) {
-            this.ignoreNextSet = false;
-            callback(undefined);
-            return;
-        }
-        // http request
+        // request
     }
     
 };
