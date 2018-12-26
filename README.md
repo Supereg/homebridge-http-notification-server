@@ -163,4 +163,6 @@ a string. Of course this only works with characteristics which have notify permi
 * [homebridge-http-humidity-sensor](https://github.com/Supereg/homebridge-http-humidity-sensor)
 * [homebridge-http-temperature-sensor](https://github.com/Supereg/homebridge-http-temperature-sensor)
 
+- [homebridge-http-rgb-push](https://github.com/QuickSander/homebridge-http-rgb-push) by Sander van Woensel
+
 _Notify me if you want to see your project here._
