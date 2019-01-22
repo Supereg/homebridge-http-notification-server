@@ -165,5 +165,6 @@ a string. Of course this only works with characteristics which have notify permi
 
 - [homebridge-http-rgb-push](https://github.com/QuickSander/homebridge-http-rgb-push) by Sander van Woensel
 - [homebridge-http-ambient-light-sensor](https://github.com/QuickSander/homebridge-http-ambient-light-sensor) by Sander van Woensel
+- [homebridge-http-moisture-sensor](https://github.com/Pythonaire/homebridge-http-moisture-sensor) by Phytonaire
 
 _Notify me if you want to see your project here._
