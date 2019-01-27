@@ -160,6 +160,7 @@ a string. Of course this only works with characteristics which have notify permi
 ## Some compatible http accessories
 
 * [homebridge-http-switch](https://github.com/Supereg/homebridge-http-switch)
+* [homebridge-http-lightbulb](https://github.com/Supereg/homebridge-http-lightbulb)
 * [homebridge-http-humidity-sensor](https://github.com/Supereg/homebridge-http-humidity-sensor)
 * [homebridge-http-temperature-sensor](https://github.com/Supereg/homebridge-http-temperature-sensor)
 
