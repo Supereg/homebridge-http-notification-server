@@ -7,6 +7,9 @@
   "keywords": [
     "homebridge-plugin"
   ],
+  "scripts": {
+    "test": "echo 'no tests set up'"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Supereg/homebridge-http-notification-server.git"
@@ -19,6 +22,7 @@
     "homebridge": ">=0.4.8"
   },
   "devDependencies": {
-    "hap-nodejs": "^0.4.48"
+    "hap-nodejs": "^0.5.7",
+    "request": "^2.88.2"
   }
 }
