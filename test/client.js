@@ -3,13 +3,14 @@ const request = require("request");
 const body ={
     service: "Switch",
     characteristic: "On",
-    value: "true"
+    value: "true",
+    password: "passwd",
 };
 
 
 request(
     {
-        url: "http://127.0.0.1:8080/testID?password=passwd",
+        url: "http://127.0.0.1:8080/testID",
         body: JSON.stringify(body, null, 4),
         method: "POST",
         rejectUnauthorized: false

@@ -137,18 +137,18 @@ HTTP_ACCESSORY.prototype = {
 The http application sends a request to the notification-server (inside of homebridge) to update a value of a HomeKit 
 characteristic. The http request must be a `POST` request. The url would be constructed as follows:
 
-`http://<hostname>:<port>/<notificationID>?password=<password>` (`https://...` if ssl is turned on; if no password was set 
-you don't specify the `password` parameter)
+`http://<hostname>:<port>/<notificationID>` (`https://...` if ssl is turned on)
 
 In our example the url would look like the following:
-`http://127.0.0.1:8080/accessory-identifier?password=top-secret-password`
+`http://127.0.0.1:8080/accessory-identifier`
 
 The POST body would look like the following:
 ```json
 {
     "service": "switch-service",
     "characteristic": "On",
-    "value": true
+    "value": true,
+    "password": "your-top-secret-password"
 }
 ```
 * `service` is fully optional. It is only useful if your accessory exposes multiple services. But if you specify it, it 
@@ -156,6 +156,7 @@ must be a string.
 * `characteristic` is required. It represents the name of the characteristic which is going to be updated. Value must be 
 a string. Of course this only works with characteristics which have notify permissions in the HAP specifications. 
 * `value` is required. 
+* `password` optional, but required if your accessory defined a password
 
 ## Some compatible http accessories
 

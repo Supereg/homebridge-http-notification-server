@@ -151,14 +151,18 @@ function validateJsonBody(body) {
     if (typeof body !== "object")
         throw new Error("Json string is not an object");
 
-    if (!(body.hasOwnProperty("characteristic") || body.hasOwnProperty("value")))
+    if (!(body.characteristic || body.value))
         throw new Error("Missing required property");
 
-    if (body.hasOwnProperty("service") && typeof body.service !== "string")
+    if (body.service && typeof body.service !== "string")
         throw new Error("property 'service' has an invalid data type");
 
     if (typeof body.characteristic !== "string")
         throw new Error("property 'characteristic' has an invalid data type");
+
+    if (body.password && typeof body.password !== "string") {
+        throw new Error("property 'password' must be a string!");
+    }
 }
 
 /**
@@ -199,16 +203,7 @@ function handleHTTPCall(request, response) {
 
         if (handlerObject) {
             let handler = handlerObject.handler;
-            let password = handlerObject.password;
-
-            if (password && (!query.password || query.password !== password)) {
-                response.writeHead(401, {'Content-Type': "text/html"});
-                response.write("Unauthorized");
-                response.end();
-
-                log("'" + notificationID + "' tried to get access without authorization");
-                return;
-            }
+            let configuredPassword = handlerObject.password;
 
             let body = "";
             let invalid = false;
@@ -246,6 +241,17 @@ function handleHTTPCall(request, response) {
                     response.end();
 
                     logError("'" + notificationID + "' sent malformed body: " + error.message);
+                    return;
+                }
+
+                const password = jsonBody.password || query.password; // check for passwords in body or query (for legacy compatibility)
+
+                if (configuredPassword && (!password || password !== configuredPassword)) {
+                    response.writeHead(401, {'Content-Type': "text/html"});
+                    response.write("Unauthorized");
+                    response.end();
+
+                    log("'" + notificationID + "' tried to get access without or wrong authorization");
                     return;
                 }
 
