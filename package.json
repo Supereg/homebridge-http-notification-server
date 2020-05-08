@@ -19,10 +19,10 @@
   },
   "engines": {
     "node": ">=4.3.2",
-    "homebridge": ">=0.4.8"
+    "homebridge": ">=0.4.53"
   },
   "devDependencies": {
-    "hap-nodejs": "^0.5.7",
+    "homebridge": "^1.0.4",
     "request": "^2.88.2"
   }
 }

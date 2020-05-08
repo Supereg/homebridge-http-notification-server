@@ -6,12 +6,6 @@ const https = require("https");
 
 const handlers = {};
 
-module.exports = function(homebridgeApi) {
-    homebridgeApi.notificationRegistration = notificationRegistration.bind(this);
-
-    main(homebridgeApi);
-};
-
 /**
  * API call which is used by an accessory to listen for incoming update requests
  *
@@ -31,6 +25,18 @@ function notificationRegistration(notificationID, handlerFunction, password) {
         password: password
     };
 }
+
+global.notificationRegistration = notificationRegistration;
+
+module.exports = function(homebridgeApi) {
+    homebridgeApi.notificationRegistration = (notificationID, handlerFunction, password) => {
+        console.log("Notifcation-Server: Access via the API object is deprecated. Please update your plugin " +
+            "(using the notificationID '" + notificationID + "') to call 'notificationRegistration' by using the global variable!");
+        notificationRegistration(notificationID, handlerFunction, password);
+    };
+
+    main(homebridgeApi);
+};
 
 /**
  * main method to start the notification server

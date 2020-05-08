@@ -2,7 +2,7 @@ const init = require("..");
 
 const api = new FakeAPI();
 init(api);
-api.notificationRegistration("testID", body => {
+global.notificationRegistration("testID", body => {
     console.log(body);
 }, "passwd");
 

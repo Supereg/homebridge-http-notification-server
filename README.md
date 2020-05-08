@@ -46,7 +46,7 @@ Example:
 ### Implementation in the homebridge accessory (receiver)
 
 First of all you need to specify a handler function in your homebridge accessory. `homebridge-http-notification-server` 
-locates it's registration function in the `notificationRegistration` property of the homebridge api at start.
+locates it's registration function in the `global` variable `notificationRegistration` at plugin initialization time.
 
 In order to be sure, that `homebridge-http-notification-server` was already loaded by homebridge, you listen on the event 
 `didFinishLaunching` of the homebridge api.
@@ -82,9 +82,9 @@ function HTTP_ACCESSORY(log, config) {
 
     api.on('didFinishLaunching', function() {
         // check if notificationRegistration is set, if not 'notificationRegistration' is probably not installed on the system
-        if (api.notificationRegistration && typeof api.notificationRegistration === "function") {
+        if (global.notificationRegistration && typeof global.notificationRegistration === "function") {
             try {
-                api.notificationRegistration("accessory-identifier", this.handleNotification.bind(this), "top-secret-password");
+                global.notificationRegistration("accessory-identifier", this.handleNotification.bind(this), "top-secret-password");
             } catch (error) {
                 // notificationID is already taken
             }
