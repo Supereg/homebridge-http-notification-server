@@ -154,9 +154,6 @@ function validateJsonBody(body) {
     if (!(body.characteristic || body.value))
         throw new Error("Missing required property");
 
-    if (body.service && typeof body.service !== "string")
-        throw new Error("property 'service' has an invalid data type");
-
     if (typeof body.characteristic !== "string")
         throw new Error("property 'characteristic' has an invalid data type");
 

@@ -143,20 +143,27 @@ In our example the url would look like the following:
 `http://127.0.0.1:8080/accessory-identifier`
 
 The POST body would look like the following:
-```json
+```json5
 {
-    "service": "switch-service",
     "characteristic": "On",
     "value": true,
-    "password": "your-top-secret-password"
+    "password": "your-top-secret-password",
+    
+    "accessory": "example-accessory", // optional, plugin defined 
+    "service": "switch-service", // optional, plugin defined
 }
 ```
-* `service` is fully optional. It is only useful if your accessory exposes multiple services. But if you specify it, it 
-must be a string.
+**Common properties**: 
 * `characteristic` is required. It represents the name of the characteristic which is going to be updated. Value must be 
-a string. Of course this only works with characteristics which have notify permissions in the HAP specifications. 
+a string. Of course this only works with characteristics which have the `notify` permissions in the HAP specifications. 
 * `value` is required. 
 * `password` optional, but required if your accessory defined a password
+
+**Plugin defined properties**:
+* `accessory` is fully optional. The type and usage is up to be defined by the plugin. This project just suggest
+    this property to be used to identify a given accessory, if your plugin exposes multiple accessories.
+* `service` is fully optional. The type and usage is up to be defined by the plugin. This project just suggest
+    this property to be used to identify a given service, if your plugin exposes multiple services.
 
 ## Some compatible http accessories
 
