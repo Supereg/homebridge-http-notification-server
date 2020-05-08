@@ -1,13 +1,13 @@
 # homebridge-http-notification-server
 
-`homebridge-http-notification-server` can be used together with [Homebridge](https://github.com/nfarina/homebridge) 
+`homebridge-http-notification-server` can be used together with [Homebridge](https://github.com/homebridge/homebridge) 
 http accessories. Http accessories are Homebridge plugins, which forward HomeKit requests to another program over a 
 http request. An example for such an accessory would be my 
 [homebridge-http-switch](https://github.com/Supereg/homebridge-http-switch).
 
 The problem with such accessories is when 
 the state of the external program changes it cannot be directly reflected in HomeKit. So one solution would be that 
-every http accessory packs it's own http server to receive state changes. But with multiple switches this becomes a mess 
+every http accessory packs its own http server to receive state changes. But with multiple switches this becomes a mess 
 very fast.
 
 This is where the `homebridge-http-notification-server` comes in. It is basically a Homebridge plugin, which is loaded by 
@@ -46,7 +46,7 @@ Example:
 ### Implementation in the homebridge accessory (receiver)
 
 First of all you need to specify a handler function in your homebridge accessory. `homebridge-http-notification-server` 
-locates it's registration function in the `global` variable `notificationRegistration` at plugin initialization time.
+locates its registration function in the `global` variable `notificationRegistration` at plugin initialization time.
 
 In order to be sure, that `homebridge-http-notification-server` was already loaded by homebridge, you listen on the event 
 `didFinishLaunching` of the homebridge api.
